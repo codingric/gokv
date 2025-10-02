@@ -19,6 +19,8 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o gokv .
 # Stage 2: Create the final, minimal image
 FROM alpine:latest
 
+RUN apk --update --no-cache add tzdata
+
 COPY --from=builder /app/gokv /usr/local/bin/gokv
 
 EXPOSE 8080
